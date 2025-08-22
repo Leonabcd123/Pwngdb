@@ -403,7 +403,8 @@ def getprocname(relative=False):
 
 def libcbase():
     infomap = procmap()
-    data = re.search(r".*libc.*\.so",infomap)
+    #data = re.search(r".*libc.*\.so",infomap)
+    data = re.search(r".*libc(-\d+\.\d+)?\.so(\.\d+)*$", infomap, re.MULTILINE)
     if data :
         libcaddr = data.group().split("-")[0]
         gdb.execute("set $libc=%s" % hex(int(libcaddr,16)))
